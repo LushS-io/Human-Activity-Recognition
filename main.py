@@ -102,7 +102,7 @@ x_test_std = sc.transform(df_test)
 # print("Random Forest accuracy")
 # print(RandomForestList)
 scoresList = []
-for x in range(50, 1001, 50):
+for x in range(5, 101, 5):
     print(x)
     ppn = Perceptron(max_iter=x, eta0=0.1, random_state=0, tol=1e-3)
     # ppn.fit(x_train_std, df_train_labels['label'])
@@ -120,9 +120,15 @@ for x in range(50, 1001, 50):
     # RandomForestList.append(accuracy_score(df_test_labels['label'], y_pred))
 
     eclf = VotingClassifier(estimators=[('per', ppn), ('svm', clf), ('rf', rand_f)], voting='hard')
-    for classifier, label in zip([ppn, clf, rand_f, eclf], ['Perceptron', 'SVM', 'Random Forest', 'Ensemble']):
-        scores = cross_val_score(classifier, x_train_std, df_train_labels['label'], cv=5, scoring='accuracy')
-        scoresList.append((label, scores, x))
-        print("Accuracy: %0.2f (+/- %0.2f) [%s]" % (scores.mean(), scores.std(), label))
 
-print(scoresList)
+    for classifier, label in zip([ppn, clf, rand_f, eclf], ['Perceptron', 'SVM', 'Random Forest', 'Ensemble']):
+        classifier.fit(x_train_std, df_train_labels['label'])
+        y_pred = classifier.predict(x_test_std)
+        score = (x, label, accuracy_score(df_test_labels['label'], y_pred))
+        scoresList.append(score)
+        # scores = cross_val_score(classifier, x_train_std, df_train_labels['label'], cv=1, scoring='accuracy')
+        # scoresList.append((label, scores, x))
+        # print("Accuracy: %0.2f (+/- %0.2f) [%s]" % (scores.mean(), scores.std(), label))
+
+for item in scoresList:
+    print(item)

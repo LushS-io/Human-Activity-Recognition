@@ -1,8 +1,8 @@
 # %% imports
-import pandas as pd
+import modin.pandas as pd
 import numpy as np
 import sklearn as sk
-from sklearn.linear_model import Perceptron
+from sklearn.svm import LinearSVC
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 
@@ -10,7 +10,7 @@ from sklearn.metrics import accuracy_score
 labelstxt = pd.read_csv(filepath_or_buffer="./HAPT Data Set/activity_labels.txt", names=['label'])
 
 labels = pd.DataFrame(columns=['labels', 'numbers'])
-labels['labels'] = labelstxt['label'].apply(lambda x: [str(x).strip(' 123456789')])
+labels['labels'] = labelstxt['label'].apply(lambda x: [str(x).strip(' 0123456789')])
 labels['numbers'] = labelstxt['label'].apply(lambda x: [str(x).strip('ABCDEFGHIJKLMNOPQRSTUVWXYZ_ ')])
 print(labels)
 
@@ -32,17 +32,16 @@ sc.fit(df_train)
 x_train_std = sc.transform(df_train)
 x_test_std = sc.transform(df_test)
 
-# %% train a perceptron learner
-ppn = Perceptron(n_iter=40, eta0=0.1, random_state=0)
+# %% train a LinearSVC
+clf = LinearSVC(random_state=0, tol=1e-5)
+clf.fit(x_train_std, df_train_labels['label'])
 
-ppn.fit(x_train_std, df_train_labels['label'])
-
-# %% apply the trained learner to test data
-y_pred = ppn.predict(x_test_std)
+# %% apply the trained learning to the test data
+y_pred = clf.predict(x_test_std)
 
 # %% compare
 print(y_pred)
 print(df_test_labels['label'])
 
 # %% compute accuracy
-print("accuracy: %.2f" % accuracy_score(df_test_labels['label'], y_pred))
+print("accuracy: %.4f" % accuracy_score(df_test_labels['label'], y_pred))

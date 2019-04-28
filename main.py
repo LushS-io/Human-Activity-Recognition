@@ -35,10 +35,10 @@
 # Date began: April 6th, 2019 -- (4/6/2019)
 # Date finished: TBD
 
-from .classifier import Classifer
+from .classifier import classifer
 
 def main():
-    classifier
+    print("hello world!")
 
 if __name__ == '__main__':
     main()

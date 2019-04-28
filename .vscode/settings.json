@@ -1,0 +1,10 @@
+{
+    "python.linting.pylintEnabled": true,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "python.pythonPath": "/home/chris/anaconda3/bin/python"
+}

@@ -114,7 +114,7 @@ for x in range(5, 101, 5):
     # y_pred = clf.predict(x_test_std)
     # SVCList.append(accuracy_score(df_test_labels['label'], y_pred))
 
-    rand_f = RandomForestClassifier()
+    rand_f = RandomForestClassifier(n_estimators=x)
     # rand_f.fit(x_train_std, df_train_labels['label'])
     # y_pred = rand_f.predict(x_test_std)
     # RandomForestList.append(accuracy_score(df_test_labels['label'], y_pred))

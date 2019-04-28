@@ -7,6 +7,7 @@ from sklearn.linear_model import Perceptron
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
+import timeit
 
 # %% crate label dataframe, NAMES and NUMBER
 labelstxt = pd.read_csv(
@@ -42,11 +43,27 @@ sc.fit(df_train)
 x_train_std = sc.transform(df_train)
 x_test_std = sc.transform(df_test)
 
-# %% predict with random forest
-rand_f = RandomForestClassifier()
 
+# %% 
+rand_f = RandomForestClassifier(n_estimators=50)
 rand_f.fit(x_train_std, df_train_labels['label'])
-
 rand_f_predict = rand_f.predict(x_test_std)
 
-print("accuracy: %.4f" % accuracy_score(df_test_labels['label'], rand_f_predict))
+print("accuracy: %.4f" % accuracy_score(
+    df_test_labels['label'], rand_f_predict))
+
+# %% predict with random forest
+
+accuracyList = []
+
+for i in range(1,50,1):
+    rand_f = RandomForestClassifier(n_estimators=i)
+    rand_f.fit(x_train_std, df_train_labels['label'])
+    rand_f_predict = rand_f.predict(x_test_std)
+    accuracyList.append(rand_f_predict)
+
+print(accuracyList)
+
+# print("accuracy: %.4f" % accuracy_score(df_test_labels['label'], rand_f_predict))
+
+#%%

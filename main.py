@@ -102,7 +102,7 @@ x_test_std = sc.transform(df_test)
 # print("Random Forest accuracy")
 # print(RandomForestList)
 scoresList = []
-for x in range(5, 101, 5):
+for x in range(1, 21):
     print(x)
     ppn = Perceptron(max_iter=x, eta0=0.1, random_state=0, tol=1e-3)
     # ppn.fit(x_train_std, df_train_labels['label'])

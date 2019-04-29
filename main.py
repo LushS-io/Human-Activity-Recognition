@@ -134,7 +134,7 @@ for x in range(1, 21):
 for item in scoresList:
     print(item)
 
-# %% 
+# %% seperate into multi lists
 PerceptronScores = []
 SVMScores = []
 RandomForestClassifierScores = []
@@ -150,6 +150,72 @@ for item, x in zip(scoresList, range(len(scoresList))):
     if x % 4 == 3:
         EnsambleScores.append(item)
 
-#%%
+#%% print and view
 print("Perceptrons: {} \n\n {} \n\n {} \n\n {} \n\n".format(
     PerceptronScores, SVMScores, RandomForestClassifierScores, EnsambleScores))
+
+# %% plotting
+justPercepScores = []
+for item in PerceptronScores:
+    justPercepScores.append(item[2])
+
+plt.plot(range(1, 21, 1), justPercepScores)
+plt.scatter(range(1, 21, 1), justPercepScores)
+plt.title("Perceptron")
+plt.xlabel("Iterations")
+plt.ylabel("Accuracy")
+
+#%%
+justSVMSCores = []
+for item in SVMScores:
+    justSVMSCores.append(item[2])
+
+plt.plot(range(1, 21, 1), justSVMSCores)
+plt.scatter(range(1, 21, 1), justSVMSCores)
+plt.title("SVM")
+plt.xlabel("Iterations")
+plt.ylabel("Accuracy")
+
+
+#%%
+justRandomFScores= []
+for item in RandomForestClassifierScores:
+    justRandomFScores.append(item[2])
+
+plt.plot(range(1, 21, 1), justRandomFScores)
+plt.scatter(range(1, 21, 1), justRandomFScores)
+plt.title("Random Forest")
+plt.xlabel("Iterations")
+plt.ylabel("Accuracy")
+
+
+# %%
+justEnsambleScores= []
+for item in EnsambleScores:
+    justEnsambleScores.append(item[2])
+
+plt.plot(range(1, 21, 1), justEnsambleScores)
+plt.scatter(range(1, 21, 1), justEnsambleScores)
+plt.title("Ensamble")
+plt.xlabel("Iterations")
+plt.ylabel("Accuracy")
+
+
+
+#%%
+all = plt.plot(range(1, 21, 1), justPercepScores, label="Perceptron")
+all = plt.scatter(range(1, 21, 1), justPercepScores)
+all = plt.plot(range(1, 21, 1), justSVMSCores, label="SVM")
+all = plt.scatter(range(1, 21, 1), justSVMSCores)
+all = plt.plot(range(1, 21, 1), justEnsambleScores, label="Ensemble")
+all = plt.scatter(range(1, 21, 1), justEnsambleScores)
+all = plt.plot(range(1, 21, 1), justRandomFScores, label="Random Forest")
+all = plt.scatter(range(1, 21, 1), justRandomFScores)
+all = plt.xlabel("Iterations")
+all = plt.ylabel("Accuracy")
+all = plt.title("Compare")
+all = plt.legend(loc='bottom right')
+
+
+
+#%%

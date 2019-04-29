@@ -150,7 +150,6 @@ for item, x in zip(scoresList, range(len(scoresList))):
     if x % 4 == 3:
         EnsambleScores.append(item)
 
-
-
-
 #%%
+print("Perceptrons: {} \n\n {} \n\n {} \n\n {} \n\n".format(
+    PerceptronScores, SVMScores, RandomForestClassifierScores, EnsambleScores))

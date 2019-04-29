@@ -46,6 +46,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import VotingClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
 
 # %% crate label dataframe, NAMES and NUMBER
 labelstxt = pd.read_csv(filepath_or_buffer="./HAPT Data Set/activity_labels.txt", names=['label'])
@@ -132,3 +133,24 @@ for x in range(1, 21):
 
 for item in scoresList:
     print(item)
+
+# %% 
+PerceptronScores = []
+SVMScores = []
+RandomForestClassifierScores = []
+EnsambleScores = []
+
+for item, x in zip(scoresList, range(len(scoresList))):
+    if x % 4 == 0:
+        PerceptronScores.append(item)
+    if x % 4 == 1:
+        SVMScores.append(item)
+    if x % 4 == 2:
+        RandomForestClassifierScores.append(item)
+    if x % 4 == 3:
+        EnsambleScores.append(item)
+
+
+
+
+#%%
